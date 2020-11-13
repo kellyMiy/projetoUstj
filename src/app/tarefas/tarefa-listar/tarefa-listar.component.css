@@ -1,0 +1,23 @@
+:host {
+  margin-top: 1rem;
+  display: block;
+}
+
+.tarefa-card {
+  width: 300px;
+  margin: 20px 10px;
+}
+
+.mat-accordion {
+  display: inline-flex;
+}
+
+.mat-card {
+  background-color: #F4F4F2;
+}
+
+.mat-card-avatar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
