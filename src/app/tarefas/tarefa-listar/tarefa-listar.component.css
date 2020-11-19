@@ -4,8 +4,14 @@
 }
 
 .tarefa-card {
-  width: 300px;
+  width: 23%;
+  min-width: 280px;
   margin: 20px 10px;
+  position: relative;
+  overflow: hidden;
+  white-space: nowrap;
+  display: inline-block;
+  vertical-align: top;
 }
 
 .mat-accordion {
@@ -13,7 +19,7 @@
 }
 
 .mat-card {
-  background-color: #F4F4F2;
+  background-color: #d2f6c5;
 }
 
 .mat-card-avatar {
@@ -21,3 +27,35 @@
   align-items: center;
   justify-content: center;
 }
+pre{
+  font-size: 120%;
+}
+.data{
+  font-size: 10px;
+  text-align: right;
+}
+mat-card-actions{
+  position: relative;
+  bottom: 1em;
+  float: left;
+}
+mat-card-content {
+  height: 75%;
+  white-space: pre-line;
+  overflow-wrap: break-word;
+}
+.rodape{
+  position: relative;
+  height: auto;
+  width: 100%;
+  float: left;
+}
+
+.mat-accordion{
+  overflow-x: scroll;
+  overflow-y: hidden;
+  width: 100%;
+  position: relative;
+  display: inline-block;
+}
+

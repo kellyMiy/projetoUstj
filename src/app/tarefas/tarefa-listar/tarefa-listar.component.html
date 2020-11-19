@@ -5,10 +5,13 @@
             <mat-card-title>{{ tarefa.titulo }}</mat-card-title>
             <mat-card-subtitle>previsto para {{ tarefa.dataConclusao | date:'dd/MM/yyyy' }}</mat-card-subtitle>
         </mat-card-header>
+        <hr>
         <mat-card-content>
-            <pre>{{ tarefa.descricao }}</pre>
-            <h5>criado em {{ tarefa.dataCadastro | date:'dd/MM/yyyy' }}</h5>
+            <span>{{ tarefa.descricao }}</span>
         </mat-card-content>
+        <div class="rodape">
+            <p class="data">criado em {{ tarefa.dataCadastro | date:'dd/MM/yyyy' }}</p>
+        </div>
         <mat-card-actions>
             <button mat-button color="primary">EDITAR</button>
             <button mat-button color="warn" (click)="onDelete(tarefa.id)">EXCLUIR</button>

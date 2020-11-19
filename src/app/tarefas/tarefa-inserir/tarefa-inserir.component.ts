@@ -28,16 +28,5 @@ export class TarefaInserirComponent {
     );
 
     form.resetForm();
-
-    // const tarefa: Tarefa = {
-    //   titulo: form.value.titulo,
-    //   descricao: form.value.descricao,
-    //   email: form.value.email,
-    // };
-    // this.tarefaAdicionado.emit(tarefa);
-  }
-
-  logar(o: any):void {
-    console.log(o);
   }
 }
