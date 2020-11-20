@@ -20,7 +20,7 @@ export class TarefaListarComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.tarefaService.getTarefas();
-    this.tarefasSubscription = this.tarefaService.getListaDeTarefasAtualizadaObservablericao().subscribe((tarefas: Tarefa[]) => {
+    this.tarefasSubscription = this.tarefaService.getListaDeTarefasAtualizadaObservable().subscribe((tarefas: Tarefa[]) => {
       this.tarefas = tarefas;
     });
   }
@@ -31,5 +31,9 @@ export class TarefaListarComponent implements OnInit, OnDestroy {
 
   onDelete(id: string): void {
     this.tarefaService.excluirTarefa(id);
+  }
+
+  onEdit(tarefa: Tarefa): void {
+    this.tarefaService.iniciarEdicaoTarefa(tarefa);
   }
 }

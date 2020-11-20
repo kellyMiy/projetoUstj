@@ -1,32 +1,51 @@
-//import { Component, EventEmitter, Output } from '@angular/core';
-import { Component } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { NgForm } from '@angular/forms';
-//import { Tarefa } from '../tarefa.model';
+import { Subscription } from 'rxjs';
+import { Tarefa } from '../tarefa.model';
 import { TarefaService } from '../tarefa.service';
 @Component({
   selector: 'app-tarefa-inserir',
   templateUrl: './tarefa-inserir.component.html',
   styleUrls: ['./tarefa-inserir.component.css'],
 })
-export class TarefaInserirComponent {
+export class TarefaInserirComponent implements OnDestroy {
+
+  private iniciaEdicaoSubscription: Subscription;
+  public tarefaEditando: Tarefa;
+  public expandir: boolean = false;
 
   constructor(public tarefaService: TarefaService) {
-
+    this.iniciaEdicaoSubscription = tarefaService.getIniciaEdicaoObservable().subscribe(tarefa => {
+      this.expandir = true;
+      this.tarefaEditando = tarefa;
+      window.scrollTo(0, 0);
+    });
   }
 
-
-  //@Output() tarefaAdicionado = new EventEmitter<Tarefa>();
-  //titulo: string;
-  //descricao: string;
-  //email: string;
-  onAdicionarTarefa(form: NgForm) {
+  onSalvarTarefa(form: NgForm) {
     if (form.invalid) return;
-    this.tarefaService.adicionarTarefa(
-      form.value.titulo,
-      form.value.descricao,
-      form.value.dataConclusao
-    );
+
+    if (this.tarefaEditando) {
+      this.tarefaService.atualizarTarefa(
+        this.tarefaEditando.id,
+        form.value.titulo,
+        form.value.descricao,
+        this.tarefaEditando.dataCadastro,
+        form.value.dataConclusao
+      );
+    }else {
+      this.tarefaService.adicionarTarefa(
+        form.value.titulo,
+        form.value.descricao,
+        form.value.dataConclusao
+      );
+    }
 
     form.resetForm();
+    this.tarefaEditando = null;
+  }
+
+  ngOnDestroy(): void {
+    this.iniciaEdicaoSubscription.unsubscribe();
   }
 }

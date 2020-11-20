@@ -1,3 +1,4 @@
+
 <mat-accordion *ngIf="tarefas.length > 0">
     <mat-card class="tarefa-card" *ngFor="let tarefa of tarefas">
         <mat-card-header>
@@ -13,7 +14,7 @@
             <p class="data">criado em {{ tarefa.dataCadastro | date:'dd/MM/yyyy' }}</p>
         </div>
         <mat-card-actions>
-            <button mat-button color="primary">EDITAR</button>
+            <button mat-button color="primary" (click)="onEdit(tarefa)">EDITAR</button>
             <button mat-button color="warn" (click)="onDelete(tarefa.id)">EXCLUIR</button>
         </mat-card-actions>
     </mat-card>

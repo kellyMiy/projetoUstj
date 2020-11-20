@@ -14,20 +14,12 @@ import { stringify } from '@angular/compiler/src/util';
 export class TarefaService {
 
   constructor(private httpClient: HttpClient) { }
-  //teste
+
   private listaTarefasAtualizada = new Subject<Tarefa[]>();
+  private iniciaEdicao = new Subject<Tarefa>();
 
-  private tarefas: Tarefa[] = [
-    /*{
-      titulo: 'Maria',
-      descricao: '11223344',
-      email: 'maria@email.com'
-    }*/
-  ];
+  private tarefas: Tarefa[] = [];
 
-  /*getTarefas(): Tarefa[] {
-    return [...this.tarefas];
-  }*/
   getTarefas(): void {
     this.httpClient.get<{ mensagem: string, tarefas: any }>('http://localhost:3000/api/tarefas').pipe(map((dados) => {
       return dados.tarefas.map(tarefa => {
@@ -57,11 +49,28 @@ export class TarefaService {
         this.tarefas.push(tarefa);
         this.listaTarefasAtualizada.next([...this.tarefas]);
       });
-
   }
 
-  getListaDeTarefasAtualizadaObservablericao() {
+  atualizarTarefa(id: string, titulo: string, descricao: string, dataCadastro: Date, dataConclusao: Date) {
+    const tarefa: Tarefa = {id, titulo, descricao, dataCadastro, dataConclusao};
+    this.httpClient.put(`http://localhost:3000/api/tarefas/${id}`, tarefa).subscribe(console.log);
+    const copia = [...this.tarefas];
+    const indice = copia.findIndex(tar => tar.id === tarefa.id);
+    copia[indice] = tarefa;
+    this.tarefas = copia;
+    this.listaTarefasAtualizada.next([...this.tarefas]);
+  }
+
+  getListaDeTarefasAtualizadaObservable() {
     return this.listaTarefasAtualizada.asObservable();
+  }
+
+  getIniciaEdicaoObservable(){
+    return this.iniciaEdicao.asObservable();
+  }
+
+  iniciarEdicaoTarefa(tarefa: Tarefa) {
+    this.iniciaEdicao.next({ ...tarefa });
   }
 
   excluirTarefa(id: string): void {
@@ -72,4 +81,5 @@ export class TarefaService {
       this.listaTarefasAtualizada.next([...this.tarefas]);
     })
   }
+  
 }
