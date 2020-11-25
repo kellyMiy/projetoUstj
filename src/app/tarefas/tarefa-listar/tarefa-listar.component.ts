@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Tarefa } from '../tarefa.model';
 import { TarefaService } from '../tarefa.service';
-import { Subscription, Observable } from 'rxjs';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-tarefa-listar',

@@ -4,6 +4,7 @@ const app = express();
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const Tarefa = require('./models/tarefa');
+const Usuario = require('./models/usuario');
 
 mongoose.connect('mongodb+srv://user_base:senha_user@cluster0.69cnq.mongodb.net/app-mean?retryWrites=true&w=majority', { useNewUrlParser: true })
     .then(() => {
@@ -63,5 +64,21 @@ app.delete('/api/tarefas/:id', (req, res, next) => {
         res.status(200).end();
     });
 });
+
+app.post('/api/login', (req, res, next) => {
+    const usuario = new Usuario({
+        email: req.body.email,
+        senha: req.body.senha,
+    });
+    
+    Usuario.findOne({ email: req.body.email, senha: req.body.senha }, ((err, doc) => {
+        if (doc != null) {
+            res.status(200).json(doc);
+        } else {
+            res.status(401).end();
+        }
+    }));
+});
+
 
 module.exports = app;
