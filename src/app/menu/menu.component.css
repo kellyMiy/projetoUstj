@@ -2,3 +2,7 @@
     background-color: #438a5e;
     color: honeydew;
 }
+
+mat-icon {
+    cursor: pointer;
+}

@@ -25,18 +25,22 @@ app.use((req, res, next) => {
     next();
 });
 
-app.get('/api/tarefas', (req, res, next) => {
-    Tarefa.find().then((tarefas) => {
+app.get('/api/tarefas/:idUsuario', (req, res, next) => {
+    const idUsuario = req.params.idUsuario;
+    console.log("idUsuario: " + idUsuario)
+    Tarefa.find({ idUsuario: idUsuario }).then((tarefas) => {
         res.status(200).json({ mensagem: 'Tarefas consultadas com sucesso', tarefas: tarefas });
     });
 })
 
 app.post('/api/tarefas', (req, res, next) => {
+    console.log(req.body);
     const tarefa = new Tarefa({
         titulo: req.body.titulo,
         descricao: req.body.descricao,
         dataConclusao: req.body.dataConclusao,
-        dataCadastro: req.body.dataCadastro
+        dataCadastro: req.body.dataCadastro,
+        idUsuario: req.body.idUsuario
     });
     
     tarefa.save((err, doc) => {
@@ -50,7 +54,8 @@ app.put('/api/tarefas/:id', (req, res, next) => {
         titulo: req.body.titulo,
         descricao: req.body.descricao,
         dataCadastro: req.body.dataCadastro,
-        dataConclusao: req.body.dataConclusao
+        dataConclusao: req.body.dataConclusao,
+        idUsuario: req.body.idUsuario
     });
     Tarefa.updateOne({_id: req.params.id}, tarefa).then(()=>{
         res.status(200).json({mensagem: 'Atualização realizada com sucesso!'});
@@ -79,6 +84,17 @@ app.post('/api/login', (req, res, next) => {
         }
     }));
 });
+
+app.post('/api/usuarios', (req, res, next) => {
+    const usuario = new Usuario({
+        email: req.body.email,
+        senha: req.body.senha
+    });
+    
+    usuario.save((err, doc) => {
+        res.status(201).json({ mensagem: 'Usuário inserido com sucesso!', id: usuario._id });
+    });
+})
 
 
 module.exports = app;

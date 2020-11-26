@@ -2,6 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Tarefa } from '../tarefa.model';
 import { TarefaService } from '../tarefa.service';
 import { Subscription } from 'rxjs';
+import { LoginService } from 'src/app/login/login.service';
 
 @Component({
   selector: 'app-tarefa-listar',
@@ -14,12 +15,12 @@ export class TarefaListarComponent implements OnInit, OnDestroy {
   tarefas: Tarefa[] = [];
   private tarefasSubscription: Subscription;
 
-  constructor(public tarefaService: TarefaService) {
+  constructor(private tarefaService: TarefaService, private loginService: LoginService) {
 
   }
 
   ngOnInit(): void {
-    this.tarefaService.getTarefas();
+    this.tarefaService.getTarefasDoUsuario(this.loginService.getUsuarioLogado().id);
     this.tarefasSubscription = this.tarefaService.getListaDeTarefasAtualizadaObservable().subscribe((tarefas: Tarefa[]) => {
       this.tarefas = tarefas;
     });

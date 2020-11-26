@@ -5,7 +5,7 @@ import { Tarefa } from './tarefa.model';
 import { Subject } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 
 
 @Injectable({
@@ -20,8 +20,8 @@ export class TarefaService {
 
   private tarefas: Tarefa[] = [];
 
-  getTarefas(): void {
-    this.httpClient.get<{ mensagem: string, tarefas: any }>('http://localhost:3000/api/tarefas').pipe(map((dados) => {
+  getTarefasDoUsuario(idUsuario: string): void {
+    this.httpClient.get<{ mensagem: string, tarefas: any }>(`http://localhost:3000/api/tarefas/${idUsuario}`).pipe(map((dados) => {
       return dados.tarefas.map(tarefa => {
         return { id: tarefa._id, ...tarefa };
       });
@@ -33,13 +33,14 @@ export class TarefaService {
     );
   }
 
-  adicionarTarefa(titulo: string, descricao: string, dataConclusao: Date): void {
+  adicionarTarefa(titulo: string, descricao: string, dataConclusao: Date, idUsuario: string): void {
     const tarefa: Tarefa = {
       id: null,
       titulo: titulo,
       descricao: descricao,
       dataConclusao: dataConclusao,
-      dataCadastro: new Date()
+      dataCadastro: new Date(),
+      idUsuario: idUsuario
     };
     console.log(tarefa);
     this.httpClient.post<{ mensagem: string, id: string }>('http://localhost:3000/api/tarefas',
@@ -51,8 +52,8 @@ export class TarefaService {
       });
   }
 
-  atualizarTarefa(id: string, titulo: string, descricao: string, dataCadastro: Date, dataConclusao: Date) {
-    const tarefa: Tarefa = {id, titulo, descricao, dataCadastro, dataConclusao};
+  atualizarTarefa(id: string, titulo: string, descricao: string, dataCadastro: Date, dataConclusao: Date, idUsuario: string) {
+    const tarefa: Tarefa = { id, titulo, descricao, dataCadastro, dataConclusao, idUsuario };
     this.httpClient.put(`http://localhost:3000/api/tarefas/${id}`, tarefa).subscribe(console.log);
     const copia = [...this.tarefas];
     const indice = copia.findIndex(tar => tar.id === tarefa.id);
@@ -65,7 +66,7 @@ export class TarefaService {
     return this.listaTarefasAtualizada.asObservable();
   }
 
-  getIniciaEdicaoObservable(){
+  getIniciaEdicaoObservable() {
     return this.iniciaEdicao.asObservable();
   }
 
@@ -81,5 +82,5 @@ export class TarefaService {
       this.listaTarefasAtualizada.next([...this.tarefas]);
     })
   }
-  
+
 }

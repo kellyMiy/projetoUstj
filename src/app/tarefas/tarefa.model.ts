@@ -4,5 +4,5 @@ export interface Tarefa {
   descricao: string;
   dataCadastro: Date;
   dataConclusao: Date;
-
+  idUsuario: string;
 }

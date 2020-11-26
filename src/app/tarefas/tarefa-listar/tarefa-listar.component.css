@@ -12,6 +12,8 @@
   white-space: nowrap;
   display: inline-block;
   vertical-align: top;
+  white-space: pre-line;
+  overflow-wrap: break-word;
 }
 
 .mat-accordion {
@@ -41,8 +43,6 @@ mat-card-actions{
 }
 mat-card-content {
   height: 75%;
-  white-space: pre-line;
-  overflow-wrap: break-word;
 }
 .rodape{
   position: relative;

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { LoginService } from '../login/login.service';
 
 @Component({
   selector: 'app-menu',
@@ -7,9 +8,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MenuComponent implements OnInit {
 
-  constructor() { }
+  emailUsuario: string;
+  constructor(private loginService: LoginService) { }
 
   ngOnInit(): void {
+    this.emailUsuario = this.loginService.getUsuarioLogado().email;
   }
 
+  onSair(): void {
+    this.loginService.removeUsuarioLogado();
+    window.location.reload();
+  }
 }

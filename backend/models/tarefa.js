@@ -8,7 +8,8 @@ const tarefaSchema = mongoose.Schema({
     titulo: { type: String, required: true },
     descricao: { type: String, required: true },
     dataConclusao: { type: Date, required: true },
-    dataCadastro: { type: Date, required: true }
+    dataCadastro: { type: Date, required: true },
+    idUsuario: { type: String, required: true }
 });
 
 //após criar o modelo, devemos exportá-lo para deixá-lo disponível

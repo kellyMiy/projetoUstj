@@ -1,6 +1,7 @@
 import { Component, OnDestroy } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Subscription } from 'rxjs';
+import { LoginService } from 'src/app/login/login.service';
 import { Tarefa } from '../tarefa.model';
 import { TarefaService } from '../tarefa.service';
 @Component({
@@ -14,7 +15,7 @@ export class TarefaInserirComponent implements OnDestroy {
   public tarefaEditando: Tarefa;
   public expandir: boolean = false;
 
-  constructor(public tarefaService: TarefaService) {
+  constructor(private tarefaService: TarefaService, private loginService: LoginService) {
     this.iniciaEdicaoSubscription = tarefaService.getIniciaEdicaoObservable().subscribe(tarefa => {
       this.expandir = true;
       this.tarefaEditando = tarefa;
@@ -31,13 +32,15 @@ export class TarefaInserirComponent implements OnDestroy {
         form.value.titulo,
         form.value.descricao,
         this.tarefaEditando.dataCadastro,
-        form.value.dataConclusao
+        form.value.dataConclusao,
+        this.loginService.getUsuarioLogado().id
       );
     }else {
       this.tarefaService.adicionarTarefa(
         form.value.titulo,
         form.value.descricao,
-        form.value.dataConclusao
+        form.value.dataConclusao,
+        this.loginService.getUsuarioLogado().id
       );
     }
 

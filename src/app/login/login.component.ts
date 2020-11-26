@@ -29,6 +29,7 @@ export class LoginComponent implements OnInit {
       }
 
       this.loginService.cadastrarUsuario(form.value.email, form.value.senha);
+      this.atualizarFormulario();
     } else {
       this.loginService.efetuarLogin(form.value.email, form.value.senha);
     }
