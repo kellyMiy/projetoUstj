@@ -27,7 +27,6 @@ app.use((req, res, next) => {
 
 app.get('/api/tarefas/:idUsuario', (req, res, next) => {
     const idUsuario = req.params.idUsuario;
-    console.log("idUsuario: " + idUsuario)
     Tarefa.find({ idUsuario: idUsuario }).then((tarefas) => {
         res.status(200).json({ mensagem: 'Tarefas consultadas com sucesso', tarefas: tarefas });
     });
@@ -95,6 +94,5 @@ app.post('/api/usuarios', (req, res, next) => {
         res.status(201).json({ mensagem: 'Usuário inserido com sucesso!', id: usuario._id });
     });
 })
-
 
 module.exports = app;

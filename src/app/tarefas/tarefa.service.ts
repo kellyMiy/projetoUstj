@@ -1,11 +1,8 @@
 import { Injectable } from '@angular/core';
-
 import { Tarefa } from './tarefa.model';
-
 import { Subject } from 'rxjs';
 import { map } from 'rxjs/operators';
-
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 
 
 @Injectable({
