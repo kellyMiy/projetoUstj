@@ -1,9 +1,7 @@
-//importar o pacote
+// importar o pacote
 const mongoose = require('mongoose');
 
-//definir o esquema "schema"
-//é muito semelhante as bases  relacionais
-
+// definir o esquema "schema"
 const tarefaSchema = mongoose.Schema({
     titulo: { type: String, required: true },
     descricao: { type: String, required: true },
@@ -12,7 +10,5 @@ const tarefaSchema = mongoose.Schema({
     idUsuario: { type: String, required: true }
 });
 
-//após criar o modelo, devemos exportá-lo para deixá-lo disponível
-//para os outros módulos, para isso associamos ao titulo Tarefa
-
+// exportar o modelo
 module.exports = mongoose.model('Tarefa', tarefaSchema);
