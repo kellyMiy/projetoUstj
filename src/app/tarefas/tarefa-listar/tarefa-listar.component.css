@@ -16,10 +16,6 @@
   overflow-wrap: break-word;
 }
 
-.mat-accordion {
-  display: inline-flex;
-}
-
 .mat-card {
   background-color: #d2f6c5;
 }
@@ -52,10 +48,24 @@ mat-card-content {
 }
 
 .mat-accordion{
-  overflow-x: scroll;
+  display: inline-flex;
   overflow-y: hidden;
   width: 100%;
   position: relative;
   display: inline-block;
+}
+.vermelho{
+  background-color: #fddad3;
+}
+.amarelo{
+  background-color: #FDFDB0;
+}
+.verde{
+  background-color: #C5FCC5;
+}
+.legenda{
+  margin-bottom: 40px;
+  background-color: #EEE9E9;
+  
 }
 

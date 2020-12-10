@@ -37,4 +37,19 @@ export class TarefaListarComponent implements OnInit, OnDestroy {
   onEdit(tarefa: Tarefa): void {
     this.tarefaService.iniciarEdicaoTarefa(tarefa);
   }
+
+  trocaCor(dataConclusao: Date) {
+    let diferenca = new Date(dataConclusao).getTime() - Date.now();
+    let difHoras = Math.round(diferenca / (1000 * 3600));
+    let retorno = "";
+    if (difHoras >= 98) {
+      retorno = "verde";
+    } else if (difHoras >= 0) {
+      retorno = "amarelo";
+    } else {
+      retorno = "vermelho";
+    }
+
+    return retorno;
+  }
 }
