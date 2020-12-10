@@ -25,47 +25,54 @@
   align-items: center;
   justify-content: center;
 }
-pre{
+
+pre {
   font-size: 120%;
 }
-.data{
+
+.data {
   font-size: 10px;
   text-align: right;
 }
-mat-card-actions{
+
+mat-card-actions {
   position: relative;
   bottom: 1em;
   float: left;
 }
+
 mat-card-content {
   height: 75%;
 }
-.rodape{
+
+.rodape {
   position: relative;
   height: auto;
   width: 100%;
   float: left;
 }
 
-.mat-accordion{
+.mat-accordion {
   display: inline-flex;
   overflow-y: hidden;
   width: 100%;
   position: relative;
   display: inline-block;
 }
-.vermelho{
+
+.vermelho {
   background-color: #fddad3;
 }
-.amarelo{
+
+.amarelo {
   background-color: #FDFDB0;
 }
-.verde{
+
+.verde {
   background-color: #C5FCC5;
 }
-.legenda{
+
+.legenda {
   margin-bottom: 40px;
   background-color: #EEE9E9;
-  
 }
-

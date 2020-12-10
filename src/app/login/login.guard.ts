@@ -3,23 +3,21 @@ import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, Router } from
 import { Observable } from 'rxjs';
 import { LoginService } from './login.service';
 
-@Injectable({ providedIn: 'root'})
+@Injectable({ providedIn: 'root' })
 export class LoginGuard implements CanActivate {
 
     constructor(
         private loginService: LoginService,
-        private router: Router) {}
+        private router: Router) { }
 
-    canActivate(
-        route: ActivatedRouteSnapshot, 
+    canActivate( // Verificar se a rota pode ser acessada ou não, é configurado no AppRoutingModule
+        route: ActivatedRouteSnapshot,
         state: RouterStateSnapshot): boolean | Observable<boolean> | Promise<boolean> {
-            
-            if(!this.loginService.usuarioEstaLogado()){
-                this.router.navigate(
-                    ['login']
-                );
-                return false;
-            }
-            return true;
+        // Verifica se o usuário esta logado
+        if (!this.loginService.usuarioEstaLogado()) {
+            this.router.navigate(['login']); // redireciona para o login
+            return false;
+        }
+        return true; // Caso esteja logado, retorna true
     }
 }
