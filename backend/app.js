@@ -36,6 +36,22 @@ app.get('/api/tarefas/:idUsuario', (req, res, next) => {
     });
 });
 
+// Endpoint para adicionar uma nova tarefa
+app.post('/api/tarefas', (req, res, next) => {
+    console.log(req.body);
+    const tarefa = new Tarefa({
+        titulo: req.body.titulo,
+        descricao: req.body.descricao,
+        dataConclusao: req.body.dataConclusao,
+        dataCadastro: req.body.dataCadastro,
+        idUsuario: req.body.idUsuario
+    });
+
+    tarefa.save((err, doc) => {
+        res.status(201).json({ mensagem: 'Tarefa inserido com sucesso!', id: tarefa._id });
+    });
+});
+
 // Endpoint para atualizar uma tarefa
 app.put('/api/tarefas/:id', (req, res, next) => {
     const tarefa = new Tarefa({
